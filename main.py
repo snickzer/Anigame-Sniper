@@ -24,6 +24,7 @@ async def on_ready():
     else:
         a = "OFF"
     print(f"Izzi Sniper - {a}")
+    print(f"{round(client.latency * 1000)} ms")
     
 
 @client.event
@@ -45,6 +46,11 @@ async def on_message(msg):
                 await msg.channel.send(kek)
             except:
                 pass
+
+            x = client.user.name 
+            a = msg.content
+            if a.endswith(f"has been added to **{x}'s** collection!"):
+                print(f"Anigame ---> {msg.content}")
     
     if IS == "y":
         if msg.author.id == 784851074472345633:
@@ -65,5 +71,10 @@ async def on_message(msg):
                         await msg.channel.send(kek)
             except:
                 pass
+
+            x = client.user.name 
+            a = msg.content
+            if a.endswith(f"has been added to **{x}'s** collection."):
+                print(f"Izzi ---> {msg.content}")
 
 client.run(TOKEN, bot=False)
