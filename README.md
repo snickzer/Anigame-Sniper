@@ -7,4 +7,4 @@ Anigame Sniper = y for ON   and    n for OFF
 Izzi Sniper = y for ON   and    n for OFF
 
 Dm me in discord for making snipers for other bots :)
-                                              -♤  Ｎｙｘｏｙ ♤#9875
+♤  Ｎｙｘｏｙ ♤#9875
