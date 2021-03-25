@@ -39,11 +39,14 @@ async def on_message(msg):
                             a = (embed.to_dict()['footer'])
                             text = (a['text'])
                         else:
-                            return  
-                r = text.split()
-                li = [r[1] , r[2]]
-                kek = ' '.join([str(elem) for elem in li])
-                await msg.channel.send(kek)
+                            return
+                        
+                async with msg.channel.typing():
+                    r = text.split()
+                    li = [r[1] , r[2]]
+                    kek = ' '.join([str(elem) for elem in li])
+                    await msg.channel.send(kek)
+                    
             except:
                 pass
 
@@ -64,11 +67,12 @@ async def on_message(msg):
                             text = (a['text'])
                         
                         else:
-                            return 
-                        r = text.split()
-                        li = [r[1] , r[2] , r[5]]
-                        kek = ' '.join([str(elem) for elem in li])
-                        await msg.channel.send(kek)
+                            return
+                async with msg.channel.typing():
+                    r = text.split()
+                    li = [r[1] , r[2] , r[5]]
+                    kek = ' '.join([str(elem) for elem in li])
+                    await msg.channel.send(kek)
             except:
                 pass
 
