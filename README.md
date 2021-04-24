@@ -13,7 +13,7 @@ Anigame Sniper , as its name suggests , is a sniper(autoclaimer) for Anigame and
 3) Input your discord accounts token , prefix and how long you want the bot to wait before claiming(LATENCY(it should be an integer)) 
 4) Run main.py
 
-## [Commands](https://raw.githubusercontent.com/Sebastian09-09/Anigame-Sniper/main/commands.txt?token=ARQNINSFRVVKVE7PZB7IU6TAQONJM)
+## [Commands](https://github.com/Sebastian09-09/Anigame-Sniper/blob/main/commands.txt)
 Anigame Sniper Commands-
 1) {prefix}add  | To turn ON sniper in the specific channel .
 2) {prefix}remove | To turn OFF sniper in the specific channel .
