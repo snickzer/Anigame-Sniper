@@ -25,3 +25,8 @@ Anigame Sniper Commands-
 8) {prefix}izzitoggle(y/n) | To turn on Izzi Sniper (y = ON / n = OFF)  
 9) {prefix}latency | To see the bots latency set by you.
 10) {prefix} setlatency (latency should be a number)| To set the bots latency.
+
+## Disclaimer
+This is against TOS and can get your account banned , use at your own risk!
+
+> If you like my sniper consider putting a star on this repo !
